@@ -1,14 +1,20 @@
-{ pkgs, homeDir, isLinux, userDetails, ... }: {
+{
+  pkgs,
+  homeDir,
+  isLinux,
+  userDetails,
+  ...
+}: {
   # Let Home Manager install and manage itself.
   home-manager.enable = true;
 
-  direnv = import ./direnv { inherit pkgs; };
+  direnv = import ./direnv {inherit pkgs;};
   git = import ./git {
     inherit pkgs homeDir;
     gitDetails = userDetails.gitDetails;
   };
-  lazygit = import ./lazygit { inherit pkgs; };
-  tmux = import ./tmux { inherit pkgs; };
+  lazygit = import ./lazygit {inherit pkgs;};
+  tmux = import ./tmux {inherit pkgs;};
 
   fzf = {
     enable = true;
@@ -23,8 +29,9 @@
         "--exclude node_modules"
       ];
       fzfDefaultCommand =
-        builtins.concatStringsSep " " [ "fd" "--type f" fdOptions ];
-    in fzfDefaultCommand;
+        builtins.concatStringsSep " " ["fd" "--type f" fdOptions];
+    in
+      fzfDefaultCommand;
 
     defaultOptions = [
       "--preview"
@@ -41,7 +48,7 @@
     ];
   };
 
-  zoxide = { enable = true; };
+  zoxide = {enable = true;};
 
   zsh = import ./zsh {
     inherit pkgs;
